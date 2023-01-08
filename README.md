@@ -1,5 +1,8 @@
 #Live Demo : https://idvlabs.vercel.app/
 
+#email:test@gmail.com
+#password:test
+
 ## How can I use this repository?
 
 - `server`:  Express server.
