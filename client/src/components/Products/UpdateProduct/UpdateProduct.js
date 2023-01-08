@@ -110,6 +110,9 @@ const UpdateProduct = (props) => {
                   className="appearance-none mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>
+              <div className="text-red-500">
+                {formik.touched.code && formik.errors.code}
+              </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Product Count : {productDetails?.count}
