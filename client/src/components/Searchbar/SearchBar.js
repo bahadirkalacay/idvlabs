@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProductsAction } from "../../redux/slices/products/productSlices";
+import {DebounceInput} from 'react-debounce-input';
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -33,8 +34,9 @@ const SearchBar = () => {
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
-        <input
+        <DebounceInput
           value={searchTerm}
+          debounceTimeout={300}
           onChange={changeSearchTerm}
           type="text"
           placeholder="Search Code"
