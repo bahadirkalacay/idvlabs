@@ -9,7 +9,10 @@ import {
 } from "../../../redux/slices/products/productSlices";
 
 const formSchema = Yup.object({
-  count: Yup.number().required("Count is required"),
+  count: Yup.number(),
+  code: Yup.number(),
+  title: Yup.string(),
+  description: Yup.string(),
 });
 
 const UpdateProduct = (props) => {
@@ -29,15 +32,21 @@ const UpdateProduct = (props) => {
 
   const productUpdate = useSelector((state) => state.product);
   const { loading, appErr, serverErr, isUpdated } = productUpdate;
-  
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       count: productDetails?.count,
+      code: productDetails?.code,
+      title: productDetails?.title,
+      description: productDetails?.description,
     },
     onSubmit: (values) => {
       const data = {
         count: values.count,
+        code: values.code,
+        description: values.description,
+        title: values.title,
         id,
       };
       dispatch(updateProductAction(data));
@@ -50,11 +59,14 @@ const UpdateProduct = (props) => {
   return (
     <>
       <div className="flex flex-col justify-center sm:px-6 lg:px-8">
-      <div className="w-full flex mb-2 ml-2">
-        <a className="mt-2 inline-block text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm  px-5 py-2.5 text-center" href="/login">
-          Product List
-        </a>
-      </div>
+        <div className="w-full flex mb-2 ml-2">
+          <a
+            className="mt-2 inline-block text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm  px-5 py-2.5 text-center"
+            href="/login"
+          >
+            Product List
+          </a>
+        </div>
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="text-center text-3xl font-extrabold text-blue-500">
             Inventory Update
@@ -72,17 +84,31 @@ const UpdateProduct = (props) => {
                 <label className="block text-sm font-medium text-gray-700">
                   Product Name : {productDetails?.title}
                 </label>
+                <input
+                  placeholder="New name..."
+                  onChange={formik.handleChange("title")}
+                  className="appearance-none mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Product Description : {productDetails?.description}
                 </label>
+                <textarea
+                  placeholder="New description..."
+                  onChange={formik.handleChange("description")}
+                  className="appearance-none mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Product Code : {productDetails?.code}
                 </label>
-               
+                <input
+                  placeholder="New code..."
+                  onChange={formik.handleChange("code")}
+                  className="appearance-none mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
@@ -90,7 +116,7 @@ const UpdateProduct = (props) => {
                 </label>
                 <div className="mt-2">
                   <input
-                  placeholder="New count..."
+                    placeholder="New count..."
                     onChange={formik.handleChange("count")}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
@@ -122,6 +148,6 @@ const UpdateProduct = (props) => {
       </div>
     </>
   );
-}
+};
 
 export default UpdateProduct;
