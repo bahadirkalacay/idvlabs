@@ -38,7 +38,7 @@ const productSchema = new mongoose.Schema(
       virtuals: true,
     },
     timestamps: true,
-  }  // ürün kaydedilmesi için gerekli
+  }  
 ); 
 
 const Product = mongoose.model("Product", productSchema);
